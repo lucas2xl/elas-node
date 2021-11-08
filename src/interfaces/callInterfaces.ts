@@ -3,6 +3,8 @@ interface ICall {
   status?: IStatus;
   created_at: Date;
   user_id: string;
+  latitude: number;
+  longitude: number;
 }
 
 export enum IStatus {

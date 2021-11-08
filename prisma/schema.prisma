@@ -22,13 +22,15 @@ model User {
   cep         Int
   address     String
   complement  String
-
-  Call Call[]
+  role        Int
+  Call        Call[]
 }
 
 model Call {
   id         Int      @id @default(autoincrement())
   status     String
+  latitude   Float
+  longitude  Float
   created_at DateTime @default(now())
   user       User     @relation(fields: [user_id], references: [id])
   user_id    String

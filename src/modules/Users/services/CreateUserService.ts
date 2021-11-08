@@ -1,6 +1,6 @@
 import { User } from '.prisma/client';
 import { hash } from 'bcrypt';
-import { ICreateUserRequest } from '@interfaces/userInterfaces';
+import { ICreateUserRequest, IRole } from '@interfaces/userInterfaces';
 import { AppError } from '@shared/errors/AppError';
 import { prismaClient } from '@shared/prisma';
 
@@ -16,6 +16,7 @@ class CreateUserService {
     password,
     phone,
     social_name,
+    role = IRole.victim,
   }: ICreateUserRequest): Promise<User> {
     let user = await prismaClient.user.findFirst({
       where: {
@@ -42,6 +43,7 @@ class CreateUserService {
           password: hashedPassword,
           phone,
           social_name,
+          role
         },
       });
     }

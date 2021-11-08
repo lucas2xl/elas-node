@@ -4,11 +4,13 @@ import { CreateCallService } from '../services/CreateCallService';
 
 class CreateCallController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { user_id } = req.body as ICreateCallRequest;
+    const { user_id, latitude, longitude } = req.body as ICreateCallRequest;
 
     const service = new CreateCallService();
     const result = await service.execute({
       user_id,
+      latitude,
+      longitude,
     });
 
     return res.json(result);

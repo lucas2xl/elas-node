@@ -10,6 +10,12 @@ interface IUser {
   cep: number;
   address: string;
   complement: string;
+  role?: IRole;
+}
+
+export enum IRole {
+  victim = 0,
+  police = 1,
 }
 
 export type ICreateUserRequest = Omit<IUser, 'id'>;

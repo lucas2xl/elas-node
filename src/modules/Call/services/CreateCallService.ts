@@ -12,6 +12,8 @@ class CreateCallService {
   public async execute({
     status = IStatus.waiting,
     user_id,
+    latitude,
+    longitude,
   }: ICreateCallRequest): Promise<ICallResponse> {
     let user = await prismaClient.user.findFirst({
       where: {
@@ -27,6 +29,8 @@ class CreateCallService {
       data: {
         status,
         user_id,
+        latitude,
+        longitude,
       },
     });
 
