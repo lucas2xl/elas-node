@@ -16,13 +16,13 @@
     "strictPropertyInitialization": false,
     "typeRoots": ["./src/@types", "node_modules/@types"],
 
-    "baseUrl": "./",
+    "baseUrl": "./src/",
     "paths": {
-      "@types/*": ["src/@types/*"],
-      "@configs/*": ["src/configs/*"],
-      "@interfaces/*": ["src/interfaces/*"],
-      "@modules/*": ["src/modules/*"],
-      "@shared/*": ["src/shared/*"]
+      "@types/*": ["@types/*"],
+      "@configs/*": ["configs/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@modules/*": ["modules/*"],
+      "@shared/*": ["shared/*"]
     },
 
     "experimentalDecorators": true,
