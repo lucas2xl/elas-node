@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node -r tsconfig-paths/register src/server.ts",
+    "start": "node src/server.ts",
     "dev": "ts-node-dev -r tsconfig-paths/register --exit-child src/server.ts"
   },
   "keywords": [
