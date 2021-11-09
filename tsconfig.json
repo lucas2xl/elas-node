@@ -8,7 +8,6 @@
     "outDir": "build",
     "rootDir": "src",
 
-    
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
@@ -23,7 +22,7 @@
       "@configs/*": ["src/configs/*"],
       "@interfaces/*": ["src/interfaces/*"],
       "@modules/*": ["src/modules/*"],
-      "@shared/*": ["src/shared/*"],
+      "@shared/*": ["src/shared/*"]
     },
 
     "experimentalDecorators": true,

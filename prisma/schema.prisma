@@ -2,16 +2,17 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id          String @id @default(uuid())
+  id          String @id @default(dbgenerated()) @map("_id") @db.ObjectId
   full_name   String
   social_name String
   password    String
@@ -27,11 +28,11 @@ model User {
 }
 
 model Call {
-  id         Int      @id @default(autoincrement())
+  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
   status     String
   latitude   Float
   longitude  Float
   created_at DateTime @default(now())
+  user_id    String   @db.ObjectId
   user       User     @relation(fields: [user_id], references: [id])
-  user_id    String
 }

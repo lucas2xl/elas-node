@@ -1,5 +1,5 @@
 interface ICall {
-  id: number;
+  id: string;
   status?: IStatus;
   created_at: Date;
   user_id: string;
