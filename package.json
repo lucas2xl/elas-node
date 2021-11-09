@@ -7,7 +7,7 @@
     "lint-fix": "eslint . --ext .ts --fix",
     "dev": "ts-node-dev -r tsconfig-paths/register --exit-child src/server.ts",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
-    "start": "node dist/server.js"
+    "start": "yarn run build && node dist/server.js"
   },
   "keywords": [
     "example",

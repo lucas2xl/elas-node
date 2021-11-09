@@ -1,0 +1,38 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "API Elas",
+    "description": "Essa API tem como o objetivo o controle de chamadas para vitimas de abusos",
+    "termsOfService": "http://localhost:4000/terms",
+    "contact": {
+      "email": "lucas.aguiar@faculdadeceusc.edu.br",
+      "name": "Lucas Aguiar"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000/v1",
+      "description": "API de teste"
+    }
+  ],
+  "paths": {
+    "/users/:id": {
+      "get": {
+        "description": "Rota para pegar um usuario especifico",
+        "parameters": [{}],
+        "responses": {
+          "400": {
+            "description": "Invalid JWT Token."
+          },
+          "401": {
+            "description": "User not found"
+          },
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}
