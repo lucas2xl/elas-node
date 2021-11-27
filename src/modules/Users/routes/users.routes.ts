@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import { CreateUserController } from '../controllers/CreateUserController';
 import { GetUserController } from '../controllers/GetUserController';
+import { isAuthenticate } from '@shared/http/middlewares/isAuthenticate';
 
 const usersRoutes = Router();
 const createUserController = new CreateUserController();
@@ -23,6 +24,6 @@ const validateBody = celebrate({
 });
 
 usersRoutes.post('/', validateBody, createUserController.handle);
-// usersRoutes.get("/:id", getUserController.handle);
+usersRoutes.get('/:id', isAuthenticate, getUserController.handle);
 
 export { usersRoutes };

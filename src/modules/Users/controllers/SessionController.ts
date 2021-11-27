@@ -8,7 +8,10 @@ class SessionsController {
 
     const createSession = new SessionService();
 
-    const result = await createSession.execute({ email, password });
+    const result = await createSession.execute({
+      email: email.toLowerCase(),
+      password,
+    });
 
     return res.json(result);
   }

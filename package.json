@@ -14,7 +14,8 @@
     "heroku"
   ],
   "engines": {
-    "node": "14.18.0"
+    "node": "16.13.0",
+    "yarn": "1.22.15"
   },
   "author": "",
   "license": "ISC",
