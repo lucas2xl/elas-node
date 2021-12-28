@@ -16,7 +16,7 @@ class SessionService {
     email,
     password,
   }: ICreateSessionsRequest): Promise<IResponse> {
-    let user = await prismaClient.user.findFirst({
+    const user = await prismaClient.user.findFirst({
       where: {
         email,
       },

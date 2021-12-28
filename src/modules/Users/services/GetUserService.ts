@@ -5,7 +5,7 @@ import { prismaClient } from '@shared/prisma';
 
 class GetUserService {
   public async execute({ id }: IGetUserRequest): Promise<User> {
-    let user = await prismaClient.user.findFirst({
+    const user = await prismaClient.user.findFirst({
       where: {
         id,
       },
