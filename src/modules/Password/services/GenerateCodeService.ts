@@ -3,10 +3,6 @@ import { ICode, IGenerateCodeRequest } from '@interfaces/passwordInterfaces';
 import { AppError } from '@shared/errors/AppError';
 import { prismaClient } from '@shared/prisma';
 
-interface IResponse {
-  code: ICode;
-}
-
 const makeCode = (size: number) => {
   let result = '';
   const characters = '0123456789';
@@ -18,7 +14,7 @@ const makeCode = (size: number) => {
 };
 
 class GenerateCodeService {
-  public async execute({ email }: IGenerateCodeRequest): Promise<IResponse> {
+  public async execute({ email }: IGenerateCodeRequest): Promise<string> {
     const user = await prismaClient.user.findFirst({
       where: {
         email,
@@ -36,13 +32,27 @@ class GenerateCodeService {
       alreadyExistCode = await prismaClient.passwordCode.findFirst({
         where: { code },
       });
-
-      if (alreadyExistCode) {
-        code = '';
-      }
     }
 
-    const passwordCode = await prismaClient.passwordCode.create({
+    const userCodes = await prismaClient.passwordCode.findMany({
+      where: {
+        user_id: user.id,
+      },
+    });
+
+    for (const code of userCodes) {
+      if (code.status === 'valid')
+        await prismaClient.passwordCode.update({
+          where: {
+            id: code.id,
+          },
+          data: {
+            status: 'invalid',
+          },
+        });
+    }
+
+    await prismaClient.passwordCode.create({
       data: {
         user_id: user.id,
         code,
@@ -50,9 +60,8 @@ class GenerateCodeService {
       },
     });
 
-    sendGridEmail.send({ code, to: email });
-
-    return { code: { id: passwordCode.id, value: passwordCode.code } };
+    await sendGridEmail.send({ code, to: email });
+    return 'Message sent successfully';
   }
 }
 

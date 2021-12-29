@@ -9,7 +9,7 @@ export const sendGridEmail = {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
     const email = {
-      from: 'lucas_g_aguiar@hotmail.com',
+      from: 'elas@huskyenterprise.studio',
       to: to,
       subject: 'Recuperação de senha',
       text: code,

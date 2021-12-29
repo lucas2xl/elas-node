@@ -1,15 +1,18 @@
 import { hash } from 'bcrypt';
 import { AppError } from '@shared/errors/AppError';
 import { prismaClient } from '@shared/prisma';
-import { User } from '@prisma/client';
 import { IRecoverPasswordRequest } from '@interfaces/passwordInterfaces';
+
+interface IResponse {
+  user_id: string;
+}
 
 class RecoverPasswordService {
   public async execute({
     email,
     newPassword,
     code,
-  }: IRecoverPasswordRequest): Promise<User> {
+  }: IRecoverPasswordRequest): Promise<IResponse> {
     let user = await prismaClient.user.findFirst({
       where: {
         email,
@@ -20,14 +23,15 @@ class RecoverPasswordService {
       throw new AppError('Incorrect email/password combination', 401);
     }
 
-    const isValidPasswordCode = await prismaClient.passwordCode.findFirst({
+    const userCode = await prismaClient.passwordCode.findFirst({
       where: {
         id: code.id,
+        user_id: user.id,
       },
     });
 
-    if (!isValidPasswordCode || isValidPasswordCode.status === 'invalid') {
-      throw new AppError('Code invalid', 402);
+    if (!userCode) {
+      throw new AppError(`The code doesn't exist`, 402);
     }
 
     const hashedNewPassword = await hash(newPassword, 8);
@@ -36,35 +40,20 @@ class RecoverPasswordService {
       where: {
         email,
       },
-      data: { password: hashedNewPassword },
-    });
-
-    const userCodes = await prismaClient.passwordCode.findMany({
-      where: {
-        id: code.id,
+      data: {
+        password: hashedNewPassword,
+        PasswordCode: {
+          update: {
+            where: {
+              id: userCode.id,
+            },
+            data: { status: 'invalid' },
+          },
+        },
       },
     });
 
-    for (const code of userCodes) {
-      if (code.status === 'valid') {
-        await prismaClient.passwordCode.update({
-          where: {
-            id: code.id,
-          },
-          data: {
-            status: 'invalid',
-          },
-        });
-      } else {
-        await prismaClient.passwordCode.delete({
-          where: {
-            id: code.id,
-          },
-        });
-      }
-    }
-
-    return user;
+    return { user_id: user.id };
   }
 }
 
