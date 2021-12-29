@@ -60,7 +60,7 @@ class GenerateCodeService {
       },
     });
 
-    await sendGridEmail.send({ code, to: email });
+    sendGridEmail.send({ code, to: email });
     return 'Message sent successfully';
   }
 }
