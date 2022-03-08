@@ -12,7 +12,7 @@ datasource db {
 }
 
 model User {
-  id           String         @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
   full_name    String
   social_name  String
   password     String
@@ -29,7 +29,7 @@ model User {
 }
 
 model Call {
-  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   status     String
   latitude   Float
   longitude  Float
@@ -39,7 +39,7 @@ model Call {
 }
 
 model PasswordCode {
-  id         String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   code       String
   status     String   @default("valid")
   created_at DateTime @default(now())
