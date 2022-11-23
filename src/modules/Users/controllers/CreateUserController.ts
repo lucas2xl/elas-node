@@ -16,7 +16,7 @@ class CreateUserController {
       phone,
       social_name,
     } = req.body as ICreateUserRequest;
-
+    console.log('email', email);
     const service = new CreateUserService();
     const result = await service.execute({
       address,

@@ -12,7 +12,6 @@ const validateBody = celebrate({
   [Segments.BODY]: {
     address: Joi.string().required(),
     cep: Joi.number().required(),
-    complement: Joi.string().optional(),
     cpf: Joi.number().required(),
     email: Joi.string().email().required(),
     full_name: Joi.string().required(),
@@ -23,7 +22,7 @@ const validateBody = celebrate({
   },
 });
 
-usersRoutes.post('/', validateBody, createUserController.handle);
+usersRoutes.post('/', createUserController.handle);
 usersRoutes.get('/:id', isAuthenticate, getUserController.handle);
 
 export { usersRoutes };

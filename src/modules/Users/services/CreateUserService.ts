@@ -18,6 +18,7 @@ class CreateUserService {
     social_name,
     role = IRole.victim,
   }: ICreateUserRequest): Promise<User> {
+    console.log('email', email);
     let user = await prismaClient.user.findFirst({
       where: {
         email,
