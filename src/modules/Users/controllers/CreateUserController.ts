@@ -23,7 +23,7 @@ class CreateUserController {
       cep,
       complement,
       cpf,
-      email,
+      email: email.toLowerCase().trim(),
       full_name,
       gender,
       password,

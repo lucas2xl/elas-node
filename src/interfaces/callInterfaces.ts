@@ -11,6 +11,7 @@ export enum IStatus {
   waiting = 'Waiting',
   in_progress = 'In progress',
   concluded = 'Concluded',
+  rejected = 'Rejected',
 }
 
 export type ICreateCallRequest = Omit<ICall, 'id' | 'created_at'>;

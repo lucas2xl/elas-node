@@ -43,7 +43,7 @@ class CreateUserService {
           password: hashedPassword,
           phone,
           social_name,
-          role
+          role,
         },
       });
     }

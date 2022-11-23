@@ -9,7 +9,7 @@ class SessionsController {
     const createSession = new SessionService();
 
     const result = await createSession.execute({
-      email: email.toLowerCase(),
+      email: email.toLowerCase().trim(),
       password,
     });
 
