@@ -25,7 +25,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "socket.io": "^4.5.4",
     "swagger-ui-express": "^4.1.6",
     "yarn": "^1.22.17"
